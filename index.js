@@ -6,33 +6,53 @@
  * See the included LICENSE file for more details.
  */
 
-var optionsConv     = require('./lib/option_converter')
-  , Server          = require('./lib/server')
-  , Agent           = require('./lib/agent')
-  , parameters      = require('./lib/parameters')
-  , net             = require('net')
-  , URL             = require('url')
-  , globalAgent     = new Agent({ type: 'udp4' })
-  , globalAgentV6   = new Agent({ type: 'udp6' })
+var optionsConv = require('./lib/option_converter'),
+  Server = require('./lib/server'),
+  Agent = require('./lib/agent'),
+  parameters = require('./lib/parameters'),
+  net = require('net'),
+  URL = require('url'),
+  globalAgent = new Agent({
+    type: 'udp4'
+  }),
+  globalAgentV6 = new Agent({
+    type: 'udp6'
+  })
 
-module.exports.request = function(url) {
+// DTLS
+var path = require('path');
+
+module.exports.request = function(url, dtlsOpts) {
   var agent, req, ipv6
-
   if (typeof url === 'string')
     url = URL.parse(url)
 
+  console.log("sending:" + JSON.stringify(url, 4));
+
+  if ((url.protocol === 'coaps:') || (typeof dtlsOps === 'Object')) {
+    // DTLS CONFIG
+    _dtls = {
+      host: url.hostname,
+      port: url.port || 5684,
+      key: path.join(__dirname, 'test/private.der'),
+      peerPublicKey: path.join(__dirname, 'test/serverPublicKey.der'),
+      debug: 5
+    }
+    Object.assign(_dtls, dtlsOpts);
+
+    url.agent = new Agent({
+      type: 'udp4'
+    }, _dtls)
+  }
+
   ipv6 = net.isIPv6(url.hostname || url.host)
 
-  if (url.agent)
+  if (url.agent) {
     agent = url.agent
-  else if (url.agent === false && !ipv6)
-    agent = new Agent({ type: 'udp4' })
-  else if (url.agent === false && ipv6)
-    agent = new Agent({ type: 'udp6' })
-  else if (ipv6)
-    agent = globalAgentV6
-  else
-    agent = globalAgent
+  } else {
+    agent = ipv6 ? globalAgentV6 : globalAgent
+  }
+
 
   return agent.request(url)
 }
