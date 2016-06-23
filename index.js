@@ -22,8 +22,8 @@ var optionsConv = require('./lib/option_converter'),
 // DTLS
 var path = require('path');
 
-module.exports.request = function(url, dtlsOpts) {
-  var agent, req, ipv6
+module.exports.request = function(url, dtlsOpts, callback) {
+  var agent, req, ipv6, _dtls
   if (typeof url === 'string')
     url = URL.parse(url)
 
@@ -53,8 +53,10 @@ module.exports.request = function(url, dtlsOpts) {
     agent = ipv6 ? globalAgentV6 : globalAgent
   }
 
-
-  return agent.request(url)
+  // dtls wait
+  // setTimeout(() => {
+  //   callback(agent.request(url, _dtls))
+  // }, 10000)
 }
 
 module.exports.createServer = Server
