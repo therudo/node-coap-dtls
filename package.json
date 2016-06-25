@@ -13,7 +13,6 @@
     "url": "https://github.com/mcollina/node-coap.git"
   },
   "pre-commit": [
-    "test"
   ],
   "keywords": [
     "coap",

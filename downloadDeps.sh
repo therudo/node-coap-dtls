@@ -1,18 +1,19 @@
 #!/bin/bash
+mkdir node_modules
 mkdir -p painAndSuffering/
 cd painAndSuffering/
 
-git clone https://github.com/spark/node-mbed-dtls
-git clone https://github.com/spark/node-mbed-dtls-client
+git clone https://github.com/datasnap-io/node-mbed-dtls
+git clone https://github.com/datasnap-io/node-mbed-dtls-client
 
 rm node-mbed-dtls-client/mbedtls -rf
 rm node-mbed-dtls/mbedtls -rf
 
 cd node-mbed-dtls/
 
-git clone https://github.com/spark/mbedtls.git
+# Unconstrained dependency...
+git clone https://github.com/ARMmbed/mbedtls.git
 cd mbedtls/
-git checkout 7e3e6a9868b3261ba03c214ea8066c469b895f34
 npm install
 cd ..
 
