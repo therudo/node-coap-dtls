@@ -57,6 +57,7 @@ module.exports.request = function(url, dtlsOpts, callback) {
   // setTimeout(() => {
   //   callback(agent.request(url, _dtls))
   // }, 10000)
+  agent.request(url, _dtls)
 }
 
 module.exports.createServer = Server
