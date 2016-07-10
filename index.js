@@ -33,10 +33,7 @@ module.exports.request = function(url, dtlsOpts, callback) {
     // DTLS CONFIG
     _dtls = {
       host: url.hostname,
-      port: url.port || 5684,
-      key: path.join(__dirname, 'test/private.der'),
-      peerPublicKey: path.join(__dirname, 'test/serverPublicKey.der'),
-      debug: 5
+      port: url.port || 5684
     }
     Object.assign(_dtls, dtlsOpts);
 
