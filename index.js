@@ -19,8 +19,6 @@ var optionsConv = require('./lib/option_converter'),
     type: 'udp6'
   })
 
-// DTLS
-var path = require('path');
 
 module.exports.request = function(url, dtlsOpts, callback) {
   var agent, req, ipv6, _dtls
