@@ -12,12 +12,8 @@ var optionsConv = require('./lib/option_converter'),
   parameters = require('./lib/parameters'),
   net = require('net'),
   URL = require('url'),
-  globalAgent = new Agent({
-    type: 'udp4'
-  }),
-  globalAgentV6 = new Agent({
-    type: 'udp6'
-  })
+  globalAgent = null; //new Agent({type: 'udp4'}),
+  globalAgentV6 = null; //new Agent({type: 'udp6'})
 
 
 module.exports.request = function(url, dtlsOpts, callback) {
@@ -36,7 +32,9 @@ module.exports.request = function(url, dtlsOpts, callback) {
     Object.assign(_dtls, dtlsOpts);
 
     url.agent = new Agent({
-      type: 'udp4'
+      type: 'udp4',
+      host: url.hostname,
+      port: url.port || 5684
     }, _dtls)
   }
 
@@ -52,7 +50,7 @@ module.exports.request = function(url, dtlsOpts, callback) {
   // setTimeout(() => {
   //   callback(agent.request(url, _dtls))
   // }, 10000)
-  agent.request(url, _dtls)
+  agent.request(url, _dtls);
 }
 
 module.exports.createServer = Server

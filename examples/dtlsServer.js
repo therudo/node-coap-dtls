@@ -12,7 +12,6 @@ const server  = coap.createServer(
   {
     dtls: dtls_opts,
     port: 5684,
-    address: '127.0.0.1'
   }
 );
 
