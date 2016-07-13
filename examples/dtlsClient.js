@@ -14,11 +14,12 @@ var dtls_opts = {
 };
 
 var req = coap.request('coaps://127.0.0.1:5684/oic/res',
-                        dtls_opts, (req) => {
+                        dtls_opts,
+                       (req) => {
                           req.on('response', function(res) {
                             res.pipe(process.stdout)
                           });
-                          req.end()
+                          req.end();
                         }
                       );
 

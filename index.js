@@ -29,7 +29,7 @@ module.exports.request = function(url, dtlsOpts, callback) {
   console.log("sending:" + JSON.stringify(url, 4));
   ipv6 = net.isIPv6(url.hostname || url.host)
 
-  if ((url.protocol === 'coaps:') || (typeof dtlsOps === 'Object')) {
+  if ((url.protocol === 'coaps:') || (typeof dtlsOpts === 'Object')) {
     // DTLS CONFIG
     _dtls = {
       host: url.hostname,
@@ -41,7 +41,13 @@ module.exports.request = function(url, dtlsOpts, callback) {
       type: 'udp4',
       host: url.hostname,
       port: url.port || 5684
-    }, _dtls, (ag) => {  ag.request(url, _dtls);  });
+    },
+    _dtls,
+    (ag) => {
+      //ag.request(url, _dtls);
+      console.log("Request generated.\n");
+      callback(ag.request(url, _dtls))
+    });
     // dtls wait
     // setTimeout(() => {
     //   callback(agent.request(url, _dtls))
