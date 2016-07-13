@@ -3,7 +3,7 @@ const path    = require('path');
 
 const dtls_opts = {
   key: path.join(__dirname, '../test/private.der'),
-  debug: 4,
+  debug: 1,
   handshakeTimeoutMin: 3000
 };
 

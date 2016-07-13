@@ -12,8 +12,8 @@ var optionsConv = require('./lib/option_converter'),
   parameters = require('./lib/parameters'),
   net = require('net'),
   URL = require('url'),
-  globalAgent =   null; //new Agent({type: 'udp4'}),
-  globalAgentV6 = null; //new Agent({type: 'udp6'})
+  globalAgent =   new Agent({type: 'udp4'}),
+  globalAgentV6 = new Agent({type: 'udp6'})
 
 
 /*
@@ -41,7 +41,7 @@ module.exports.request = function(url, dtlsOpts, callback) {
       type: 'udp4',
       host: url.hostname,
       port: url.port || 5684
-    }, _dtls, (ag) => {  ag.request(url);  });
+    }, _dtls, (ag) => {  ag.request(url, _dtls);  });
     // dtls wait
     // setTimeout(() => {
     //   callback(agent.request(url, _dtls))
@@ -55,8 +55,9 @@ module.exports.request = function(url, dtlsOpts, callback) {
     else {
       agent = ipv6 ? globalAgentV6 : globalAgent
     }
+
     if (agent._sock) {
-      agent.request(url);
+      return agent.request(url);
     }
     else {
       console.log("Socket is not ready!\n");
