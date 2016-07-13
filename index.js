@@ -12,16 +12,22 @@ var optionsConv = require('./lib/option_converter'),
   parameters = require('./lib/parameters'),
   net = require('net'),
   URL = require('url'),
-  globalAgent = null; //new Agent({type: 'udp4'}),
+  globalAgent =   null; //new Agent({type: 'udp4'}),
   globalAgentV6 = null; //new Agent({type: 'udp6'})
 
 
+/*
+ * This is the only exposure that the application should have to the
+ *   client-side of the coap implementation. Concentrate parameter-normalization
+ *   code in this call.
+ */
 module.exports.request = function(url, dtlsOpts, callback) {
   var agent, req, ipv6, _dtls
   if (typeof url === 'string')
     url = URL.parse(url)
 
   console.log("sending:" + JSON.stringify(url, 4));
+  ipv6 = net.isIPv6(url.hostname || url.host)
 
   if ((url.protocol === 'coaps:') || (typeof dtlsOps === 'Object')) {
     // DTLS CONFIG
@@ -35,22 +41,27 @@ module.exports.request = function(url, dtlsOpts, callback) {
       type: 'udp4',
       host: url.hostname,
       port: url.port || 5684
-    }, _dtls)
+    }, _dtls, (ag) => {  ag.request(url);  });
+    // dtls wait
+    // setTimeout(() => {
+    //   callback(agent.request(url, _dtls))
+    // }, 10000)
   }
-
-  ipv6 = net.isIPv6(url.hostname || url.host)
-
-  if (url.agent) {
-    agent = url.agent
-  } else {
-    agent = ipv6 ? globalAgentV6 : globalAgent
+  else {
+    // No DTLS. Vanilla datagram.
+    if (url.agent) {
+      agent = url.agent
+    }
+    else {
+      agent = ipv6 ? globalAgentV6 : globalAgent
+    }
+    if (agent._sock) {
+      agent.request(url);
+    }
+    else {
+      console.log("Socket is not ready!\n");
+    }
   }
-
-  // dtls wait
-  // setTimeout(() => {
-  //   callback(agent.request(url, _dtls))
-  // }, 10000)
-  agent.request(url, _dtls);
 }
 
 module.exports.createServer = Server
