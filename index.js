@@ -12,8 +12,8 @@ var optionsConv = require('./lib/option_converter'),
   parameters = require('./lib/parameters'),
   net = require('net'),
   URL = require('url'),
-  globalAgent =   new Agent({type: 'udp4'}),
-  globalAgentV6 = new Agent({type: 'udp6'})
+  globalAgent =   null; //new Agent({type: 'udp4'}),
+  globalAgentV6 = null; //new Agent({type: 'udp6'})
 
 
 /*

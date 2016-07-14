@@ -1,6 +1,10 @@
 const coap    = require('../') // or coap
 const path    = require('path');
 
+var SegfaultHandler = require('segfault-handler');
+
+SegfaultHandler.registerHandler("crash.log"); // With no argument, SegfaultHandler will generate a generic log file name
+
 const dtls_opts = {
   key: path.join(__dirname, '../test/private.der'),
   debug: 1,
