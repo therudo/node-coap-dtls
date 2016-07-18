@@ -41,6 +41,7 @@
     "debug": "^2.2.0",
     "fastseries": "^1.7.0",
     "lru-cache": "~4.0.0",
-    "readable-stream": "~2.0.5"
+    "readable-stream": "~2.0.5",
+    "cbor": "~1.0.4"
   }
 }
