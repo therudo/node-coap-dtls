@@ -4,7 +4,12 @@ node-coap
 This is datasnap's fork of node-coap. It has been extended to use DTLS.
 
 The server does not yet function. More work needs to be done to rationalize the
-innate differeces in socket handling between TLS and straight-up UDP. 
+innate differeces in socket handling between TLS and straight-up UDP.
+
+There exists a hard-coded PSK/Identity in the server. IoTivity test keys. This will be removed once the server is setup (as the client is) to accept this information via instantiation options.
+
+DTLS is enabled by passing an object into the instantiation options. See the DTLS examples for explanation.
+
 
 ========
 
