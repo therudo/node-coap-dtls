@@ -1,9 +1,12 @@
 node-coap
 =====
 
-[![Build
-Status](https://travis-ci.org/mcollina/node-coap.png)](https://travis-ci.org/mcollina/node-coap)
-[![gitter](https://badges.gitter.im/mcollina/node-coap.png)](https://gitter.im/mcollina/node-coap)
+This is datasnap's fork of node-coap. It has been extended to use DTLS.
+
+The server does not yet function. More work needs to be done to rationalize the
+innate differeces in socket handling between TLS and straight-up UDP. 
+
+========
 
 __node-coap__ is a client and server library for CoAP modelled after the `http` module.
 
@@ -14,10 +17,6 @@ __node-coap__ is a client and server library for CoAP modelled after the `http` 
   * <a href="#api">API</a>
   * <a href="#contributing">Contributing</a>
   * <a href="#licence">Licence &amp; copyright</a>
-
-[![NPM](https://nodei.co/npm/coap.png)](https://nodei.co/npm/coap/)
-
-[![NPM](https://nodei.co/npm-dl/coap.png)](https://nodei.co/npm/coap/)
 
 <a name="intro"></a>
 ## Introduction
