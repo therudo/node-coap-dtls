@@ -1,4 +1,4 @@
-node-coap
+## node-coap
 =====
 
 This is datasnap's fork of node-coap. It has been extended to use DTLS.
@@ -543,7 +543,8 @@ __node-coap__ is an **OPEN Open Source Project**. This means that:
 See the [CONTRIBUTING.md](https://github.com/mcollina/node-coap/blob/master/CONTRIBUTING.md) file for more details.
 
 
-## Contributors
+### Contributors
+----------------------------
 
 __node-coap__ is only possible due to the excellent work of the following contributors:
 
@@ -555,6 +556,9 @@ __node-coap__ is only possible due to the excellent work of the following contri
 <tr><th align="left">Christopher Hiller</th><td><a href="https://github.com/boneskull">GitHub/boneskull</a></td><td><a href="https://twitter.com/b0neskull">Twitter/@b0neskull</a></td></tr>
 </tbody></table>
 
-## LICENSE
+### License
+----------------------------
 
 MIT, see LICENSE.md file.
+
+DTLS extensions performed by J. Ian Lindsay
