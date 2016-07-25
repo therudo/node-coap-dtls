@@ -6,6 +6,7 @@
  * See the included LICENSE file for more details.
  */
 
+const util = require('util');
 var optionsConv = require('./lib/option_converter'),
   Server = require('./lib/server'),
   Agent = require('./lib/agent'),
@@ -23,8 +24,9 @@ var optionsConv = require('./lib/option_converter'),
  */
 module.exports.request = function(url, dtlsOpts, callback) {
   var agent, req, ipv6, _dtls
-  if (typeof url === 'string')
+  if (typeof url === 'string') {
     url = URL.parse(url)
+  }
 
   console.log("sending:" + JSON.stringify(url, 4));
   ipv6 = net.isIPv6(url.hostname || url.host)
@@ -34,7 +36,7 @@ module.exports.request = function(url, dtlsOpts, callback) {
     _dtls = {
       host: url.hostname,
       port: url.port || 5684
-    }
+    };
     Object.assign(_dtls, dtlsOpts);
 
     url.agent = new Agent({
@@ -44,9 +46,10 @@ module.exports.request = function(url, dtlsOpts, callback) {
     },
     _dtls,
     (ag) => {
-      //ag.request(url, _dtls);
-      console.log("Request generated.\n");
-      callback(ag.request(url, _dtls))
+      var _req = ag.request(url, _dtls);
+      //console.log(util.inspect(_req));
+      callback(_req);
+      _req.end();
     });
     // dtls wait
     // setTimeout(() => {
