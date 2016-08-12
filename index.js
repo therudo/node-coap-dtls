@@ -49,7 +49,7 @@ module.exports.request = function(url, dtlsOpts, callback) {
       var _req = ag.request(url, _dtls);
       //console.log(util.inspect(_req));
       callback(_req);
-      _req.end();
+      //_req.end();
     });
     // dtls wait
     // setTimeout(() => {
@@ -58,15 +58,30 @@ module.exports.request = function(url, dtlsOpts, callback) {
   }
   else {
     // No DTLS. Vanilla datagram.
-    if (url.agent) {
+    url.agent = new Agent({
+      type: ipv6 ? 'udp6' : 'udp4',
+      host: url.hostname,
+      port: url.port || 5683
+    },
+    false,
+    (ag) => {
+      var _req = ag.request(url, _dtls);
+      //console.log(util.inspect(_req));
+      callback(_req);
+      //_req.end();
+    });
+
+    //if (url.agent) {
       agent = url.agent
-    }
-    else {
-      agent = ipv6 ? globalAgentV6 : globalAgent
-    }
+    //}
+    //else {
+    //  agent = ipv6 ? globalAgentV6 : globalAgent
+    //}
 
     if (agent._sock) {
-      return agent.request(url);
+      var req =  agent.request(url);
+      req.end();
+      return req;
     }
     else {
       console.log("Socket is not ready!\n");
