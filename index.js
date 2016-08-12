@@ -58,29 +58,17 @@ module.exports.request = function(url, dtlsOpts, callback) {
   }
   else {
     // No DTLS. Vanilla datagram.
-    url.agent = new Agent({
-      type: ipv6 ? 'udp6' : 'udp4',
-      host: url.hostname,
-      port: url.port || 5683
-    },
-    false,
-    (ag) => {
-      var _req = ag.request(url, _dtls);
-      //console.log(util.inspect(_req));
-      callback(_req);
-      //_req.end();
-    });
-
-    //if (url.agent) {
+    if (url.agent) {
       agent = url.agent
-    //}
-    //else {
-    //  agent = ipv6 ? globalAgentV6 : globalAgent
-    //}
+    }
+    else {
+      agent = ipv6 ? globalAgentV6 : globalAgent
+    }
 
     if (agent._sock) {
       var req =  agent.request(url);
       req.end();
+      callback(req);
       return req;
     }
     else {
