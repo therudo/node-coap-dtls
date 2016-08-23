@@ -28,7 +28,7 @@ module.exports.request = function(url, dtlsOpts, callback) {
     url = URL.parse(url)
   }
 
-  console.log("sending:" + JSON.stringify(url, 4));
+  //console.log("sending:" + JSON.stringify(url, 4));
   ipv6 = net.isIPv6(url.hostname || url.host)
 
   if ((url.protocol === 'coaps:') || (typeof dtlsOpts === 'Object')) {
