@@ -1,5 +1,5 @@
 {
-  "name": "coap",
+  "name": "coap-dtls",
   "version": "0.17.0",
   "description": "A CoAP library for node modelled after 'http'",
   "main": "index.js",
