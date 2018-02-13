@@ -1,13 +1,28 @@
 const coap    = require('../') // or coap
 const path    = require('path');
 
-var SegfaultHandler = require('segfault-handler');
+function identityPskCallback(id) {
+  let psk = '';
+  console.log("Got an id ",id);
+  switch (id)  {
+    case 'foo':
+      psk = 'asdasdadasd';
+      break;
+    case '32323232-3232-3232-3232-323232323232':
+      psk = 'AAAAAAAAAAAAAAAA';
+      break;
+    default:
+      psk = '';
+      break;
+  }
 
-SegfaultHandler.registerHandler("crash.log"); // With no argument, SegfaultHandler will generate a generic log file name
+  return psk;
+}
 
 const dtls_opts = {
   key: path.join(__dirname, '../test/private.der'),
   debug: 1,
+  identityPskCallback : identityPskCallback,
   handshakeTimeoutMin: 3000
 };
 
