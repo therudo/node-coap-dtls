@@ -12,7 +12,7 @@ var params = {
   hostname: '127.0.0.1',
   port: 5684,
   method: 'POST',
-  options: {'Content-Format': 'application/json'},
+//  options: {'Content-Format': 'application/json'},
   pathname: '/oic/res'
 };
 
