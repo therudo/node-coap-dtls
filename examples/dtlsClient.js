@@ -7,7 +7,19 @@ var dtls_opts = {
   peerPublicKey: null
 };
 
-var req = coap.request('coaps://127.0.0.1:5684/oic/res',
+var params = {
+  protocol : "coaps:",
+  hostname: '127.0.0.1',
+  port: 5684,
+  method: 'POST',
+  options: {'Content-Format': 'application/json'},
+  pathname: '/oic/res'
+};
+
+var url = "coaps://127.0.0.1:5684/oic/res";
+
+var req = coap.request(
+  params,
   dtls_opts,
  (req) => {
 
