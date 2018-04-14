@@ -27,7 +27,6 @@ module.exports.request = function(url, dtlsOpts, callback) {
   if (typeof url === 'string') {
     url = URL.parse(url)
   }
-
   //console.log("sending:" + JSON.stringify(url, 4));
   ipv6 = net.isIPv6(url.hostname || url.host)
 
@@ -40,7 +39,7 @@ module.exports.request = function(url, dtlsOpts, callback) {
     Object.assign(_dtls, dtlsOpts);
 
     url.agent = new Agent({
-      type: 'udp4',
+      type: ipv6 ? 'udp6' : 'udp4',
       host: url.hostname,
       port: url.port || 5684
     },
