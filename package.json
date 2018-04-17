@@ -11,8 +11,7 @@
     "type": "git",
     "url": "https://github.com/neustar/node-coap.git"
   },
-  "pre-commit": [
-  ],
+  "pre-commit": [],
   "keywords": [
     "coap",
     "m2m",
