@@ -31,9 +31,8 @@ var req = coap.request(
 
     req.on('response', function(res) {
       res.pipe(process.stdout)
-      process.exit(0);
     });
-    
+
     req.end();
   }
 );
