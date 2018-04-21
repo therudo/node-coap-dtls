@@ -8,29 +8,32 @@ var dtls_opts = {
 };
 
 var params = {
-  protocol : "coaps:",
-  hostname: '127.0.0.1',
-  port: 5684,
-  method: 'POST',
-  options: {'Content-Format': 'application/json'},
-  pathname: '/oic/res'
+	"protocol":"coaps:",
+	"port":"51846",
+	"hostname":"2001:470:1f12:8c8:2::2000",
+	"query":"id",
+	"pathname":"/info"
 };
-
-var url = "coaps://127.0.0.1:5684/oic/res";
 
 var req = coap.request(
   params,
   dtls_opts,
  (req) => {
-
-    var payload = {
-      my : 'payload'
-    };
-
-    req.write(JSON.stringify(payload));
-
     req.on('response', function(res) {
-      res.pipe(process.stdout)
+	console.log("Response using params :",res.payload.toString());
+    });
+    
+    req.end();
+  }
+);
+
+var url = "coaps://[2001:470:1f12:8c8:2::2000]:51846/info?id";
+var req = coap.request(
+  url,
+  dtls_opts,
+ (req) => {
+    req.on('response', function(res) {
+	console.log("Response using url :",res.payload.toString());
     });
 
     req.end();
